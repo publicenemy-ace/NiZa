@@ -1,8 +1,8 @@
 #include "main.h"
 int (*get_builtin(char *command))(char **args, char **front);
-int shellby_exit(char **args, char **front);
-int shellby_cd(char **args, char __attribute__((__unused__)) **front);
-int shellby_help(char **args, char __attribute__((__unused__)) **front);
+int exit_shell(char **args, char **front);
+int cd_shell(char **args, char __attribute__((__unused__)) **front);
+int help_shell(char **args, char __attribute__((__unused__)) **front);
 
 /**
  * get_builtin - Matches a command with a corresponding
@@ -33,7 +33,7 @@ int (*get_builtin(char *command))(char **args, char **front)
 }
 
 /**
- * shellby_exit - Terminates normal process for the shellby shell.
+ * exit_shell - Terminates normal process for the shellby shell.
  * @args: Array of arguments containing the exit value.
  * @front: Double pointer to beginning of args.
  * Return: If no arguments - -3.
@@ -41,7 +41,7 @@ int (*get_builtin(char *command))(char **args, char **front)
  * Otherwise - exits with the given status value.
  * Description: Upon returning -3, the program exits back in the main function.
  */
-int shellby_exit(char **args, char **front)
+int exit_shell(char **args, char **front)
 {
 	int i, len_of_int = 10;
 	unsigned int num = 0, max = 1 << (sizeof(int) * 8 - 1);
@@ -58,7 +58,7 @@ int shellby_exit(char **args, char **front)
 			if (i <= len_of_int && args[0][i] >= '0' && args[0][i] <= '9')
 				num = (num * 10) + (args[0][i] - '0');
 			else
-				return (create_error(--args, 2));
+				return (make_error(--args, 2));
 		}
 	}
 	else
@@ -66,7 +66,7 @@ int shellby_exit(char **args, char **front)
 		return (-3);
 	}
 	if (num > max - 1)
-		return (create_error(--args, 2));
+		return (make_error(--args, 2));
 	args -= 1;
 	free_args(args, front);
 	free_env();
@@ -75,14 +75,14 @@ int shellby_exit(char **args, char **front)
 }
 
 /**
- * shellby_cd - Changes current directory of shellby process.
+ * cd_shell - Changes current directory of shellby process.
  * @args: Array of arguments.
  * @front: Double pointer to beginning of args.
  * Return: If the given string is not a directory - 2.
  * If error occurs - -1.
  * Otherwise - 0.
  */
-int shellby_cd(char **args, char __attribute__((__unused__)) **front)
+int cd_shell(char **args, char __attribute__((__unused__)) **front)
 {
 	char **dir_info, *new_line = "\n";
 	char *oldpwd = NULL, *pwd = NULL;
@@ -105,7 +105,7 @@ int shellby_cd(char **args, char __attribute__((__unused__)) **front)
 			else
 			{
 				free(oldpwd);
-				return (create_error(args, 2));
+				return (make_error(args, 2));
 			}
 		}
 		else
@@ -116,7 +116,7 @@ int shellby_cd(char **args, char __attribute__((__unused__)) **front)
 			else
 			{
 				free(oldpwd);
-				return (create_error(args, 2));
+				return (make_error(args, 2));
 			}
 		}
 	}
@@ -155,13 +155,13 @@ int shellby_cd(char **args, char __attribute__((__unused__)) **front)
 }
 
 /**
- * shellby_help - Displays information about shellby builtin commands.
+ * help_shell - Displays information about shellby builtin commands.
  * @args: Array of arguments.
  * @front: Pointer to beginning of args.
  * Return: If error occurs - -1.
  * Otherwise - 0.
  */
-int shellby_help(char **args, char __attribute__((__unused__)) **front)
+int help_shell(char **args, char __attribute__((__unused__)) **front)
 {
 	if (!args[0])
 		help_all();

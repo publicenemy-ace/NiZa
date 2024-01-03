@@ -92,13 +92,13 @@ int _strncmp(const char *s1, const char *s2, size_t n);
 
 /* Builtins */
 int (*get_builtin(char *command))(char **args, char **front);
-int shellby_exit(char **args, char **front);
-int shellby_env(char **args, char __attribute__((__unused__)) **front);
-int shellby_setenv(char **args, char __attribute__((__unused__)) **front);
-int shellby_unsetenv(char **args, char __attribute__((__unused__)) **front);
-int shellby_cd(char **args, char __attribute__((__unused__)) **front);
+int exit_shell(char **args, char **front);
+int env_shell(char **args, char __attribute__((__unused__)) **front);
+int setenv_shell(char **args, char __attribute__((__unused__)) **front);
+int unsetenv_shell(char **args, char __attribute__((__unused__)) **front);
+int cd_shell(char **args, char __attribute__((__unused__)) **front);
 int alias_shell(char **args, char __attribute__((__unused__)) **front);
-int shellby_help(char **args, char __attribute__((__unused__)) **front);
+int help_shell(char **args, char __attribute__((__unused__)) **front);
 
 /* Builtin Helpers */
 char **_duplicate_env(void);
@@ -106,7 +106,7 @@ void release_env(void);
 char **_acqenv(const char *var);
 
 /* Error Handling */
-int create_error(char **args, int err);
+int make_error(char **args, int err);
 char *error_env(char **args);
 char *error_1(char **args);
 char *error_2_exit(char **args);

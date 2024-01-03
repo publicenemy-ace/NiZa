@@ -2,7 +2,7 @@
 
 int num_len(int num);
 char *_itoa(int num);
-int create_error(char **args, int err);
+int make_error(char **args, int err);
 
 /**
  * num_len - Counts digit length of a number.
@@ -71,12 +71,12 @@ char *_itoa(int num)
 
 
 /**
- * create_error - Writes a custom error message to stderr.
+ * make_error - Writes a custom error message to stderr.
  * @args: Array of arguments.
  * @err: Error value.
  * Return: Value of error.
  */
-int create_error(char **args, int err)
+int make_error(char **args, int err)
 {
 	char *error;
 
