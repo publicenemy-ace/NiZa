@@ -1,7 +1,7 @@
 #include "main.h"
 
 void sig_handler(int sig);
-int execute(char **args, char **front);
+int run(char **args, char **front);
 
 /**
  * sig_handler - Prints new prompt upon a signal.
@@ -17,13 +17,13 @@ void sig_handler(int sig)
 }
 
 /**
- * execute - Executes command in a child process.
+ * run - Executes command in a child process.
  * @args: Array of arguments.
  * @front: Double pointer to the beginning of args.
  * Return: If error occurs - a corresponding error code.
  * Otherwise - Exit value of last executed command.
  */
-int execute(char **args, char **front)
+int run(char **args, char **front)
 {
 	pid_t child_pid;
 	int status, flag = 0, ret = 0;
@@ -32,15 +32,15 @@ int execute(char **args, char **front)
 	if (command[0] != '/' && command[0] != '.')
 	{
 		flag = 1;
-		command = get_location(command);
+		command = get_cmd_location(command);
 	}
 
 	if (!command || (access(command, F_OK) == -1))
 	{
 		if (errno == EACCES)
-			ret = (create_error(args, 126));
+			ret = (make_error(args, 126));
 		else
-			ret = (create_error(args, 127));
+			ret = (make_error(args, 127));
 	}
 	else
 	{

@@ -65,7 +65,7 @@ void *mem_realloc(void *ptr, unsigned int old_s, unsigned int new_s);
 char **_str_token(char *line, char *del);
 char *get_cmd_location(char *cmd);
 list_t *get_path_dir(char *path);
-int execute(char **args, char **front);
+int run(char **args, char **front);
 void free_list(list_t *head);
 char *_itoa(int num);
 
