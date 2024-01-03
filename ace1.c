@@ -52,7 +52,7 @@ int count_tokens(char *str, char *del)
 }
 
 /**
- * _strtok - Tokenizes a string.
+ * _str_token - Tokenizes a string.
  * @line: String.
  * @del: Delimiter character to tokenize the string.
  * Return: Points array containing the tokenized words.

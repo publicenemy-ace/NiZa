@@ -1,15 +1,15 @@
 #include "main.h"
 
-char **_copyenv(void);
-void free_env(void);
-char **_getenv(const char *var);
+char **_duplicate_env(void);
+void release_env(void);
+char **_acqenv(const char *var);
 
 /**
- * _copyenv - Creates a copy of the environment.
+ * _duplicate_env - Creates a copy of the environment.
  * Return: If an error occurs - NULL.
  * Otherwise - a double pointer to the new copy.
  */
-char **_copyenv(void)
+char **_duplicate_env(void)
 {
 	char **new_environ;
 	size_t size;
@@ -41,9 +41,9 @@ char **_copyenv(void)
 }
 
 /**
- * free_env - Frees the environment copy.
+ * release_env - Frees the environment copy.
  */
-void free_env(void)
+void release_env(void)
 {
 	int index;
 
@@ -53,12 +53,12 @@ void free_env(void)
 }
 
 /**
- * _getenv - Gets an environmental variable from the PATH.
+ * _acqenv - Gets an environmental variable from the PATH.
  * @var: Name of environmental variable to get.
  * Return: If environmental variable does not exist - NULL.
  * Otherwise - a pointer to the environmental variable.
  */
-char **_getenv(const char *var)
+char **_acqenv(const char *var)
 {
 	int index, len;
 

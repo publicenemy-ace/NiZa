@@ -101,9 +101,9 @@ int alias_shell(char **args, char __attribute__((__unused__)) **front);
 int shellby_help(char **args, char __attribute__((__unused__)) **front);
 
 /* Builtin Helpers */
-char **_copyenv(void);
-void free_env(void);
-char **_getenv(const char *var);
+char **_duplicate_env(void);
+void release_env(void);
+char **_acqenv(const char *var);
 
 /* Error Handling */
 int create_error(char **args, int err);
