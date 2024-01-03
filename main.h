@@ -62,22 +62,22 @@ alias_t *aliases;
 /* Main Helpers */
 ssize_t getline(char **buff_lineptr, size_t *s, FILE *strm);
 void *mem_realloc(void *ptr, unsigned int old_s, unsigned int new_s);
-char **_strtok(char *line, char *delim);
-char *get_location(char *command);
+char **_str_token(char *line, char *del);
+char *get_cmd_location(char *cmd);
 list_t *get_path_dir(char *path);
 int execute(char **args, char **front);
 void free_list(list_t *head);
 char *_itoa(int num);
 
 /* Input Helpers */
-void handle_line(char **line, ssize_t read);
-void variable_replacement(char **args, int *exe_ret);
-char *get_args(char *line, int *exe_ret);
-int call_args(char **args, char **front, int *exe_ret);
-int run_args(char **args, char **front, int *exe_ret);
+void part_line(char **line, ssize_t read);
+void replace_variable_(char **args, int *exe_ret);
+char *fetch_args(char *line, int *exe_ret);
+int part_args(char **args, char **front, int *exe_ret);
+int execute_args(char **args, char **front, int *exe_ret);
 int handle_args(int *exe_ret);
-int check_args(char **args);
-void free_args(char **args, char **front);
+int valid_args(char **args);
+void set_args_free(char **args, char **front);
 char **replace_aliases(char **args);
 
 /* String functions */
@@ -116,10 +116,10 @@ char *error_126(char **args);
 char *error_127(char **args);
 
 /* Linkedlist Helpers */
-alias_t *add_alias_end(alias_t **head, char *name, char *value);
-void free_alias_list(alias_t *head);
-list_t *add_node_end(list_t **head, char *dir);
-void free_list(list_t *head);
+alias_t *appd_alias_end(alias_t **head, char *name, char *value);
+void setfree_alias_list(alias_t *head);
+list_t *appd_node_end(list_t **head, char *dir);
+void set_free_list(list_t *head);
 
 void print_help_all(void);
 void print_help_alias(void);
